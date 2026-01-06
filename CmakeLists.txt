@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.21)
+
+project(renderer
+    VERSION 0.1
+    LANGUAGES C CXX
+)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_library(glad external/glad/src/glad.c)
+target_include_directories(glad PUBLIC
+    external/glad/include
+)
+
+find_package(glfw3 CONFIG REQUIRED)
+
+add_executable(renderer
+    src/main.cpp
+    src/core/Window.cpp
+    src/renderer/Triangle.cpp
+)
+
+target_include_directories(renderer PRIVATE
+    src
+)
+
+target_link_libraries(renderer
+    glad
+    glfw
+)
